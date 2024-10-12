@@ -14,10 +14,10 @@ class MoviesRouter: PresenterToRouterMoviesProtocol {
         let presenter = ViewToPresenterMoviesProtocol & InteractorToPresenterMoviesProtocol = MoviesPresenter()
         
         viewController.presenter = presenter
-        viewController.presenter?.routuer = MoviesRouter()
+        viewController.presenter?.router = MoviesRouter()
         viewController.presenter?.view = viewController
         viewController.presenter?.interactor = MoviesInteractor()
-        viewController.presenter?.interactor.presenter = presenter
+        viewController.presenter?.interactor?.presenter = presenter
         
         return viewController
     }

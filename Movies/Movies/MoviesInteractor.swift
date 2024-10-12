@@ -8,5 +8,5 @@
 import Foundation
 
 class MoviesInteractor: PresenterToInteractorMoviesProtocol {
-    var presenter: InteractorToPresenterMoviesProtocol? 
+    var presenter: InteractorToPresenterMoviesProtocol?
 }
