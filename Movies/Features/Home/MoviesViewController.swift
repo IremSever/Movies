@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MoviesViewController: UIViewController {
+class MoviesViewController: UIViewController, NavigationView {
     var presenter: ViewToPresenterMoviesProtocol?
     
     override func viewDidLoad() {
