@@ -19,5 +19,6 @@ class DetailMoviesRouter: DetailRouting {
         let view = DetailMoviesView(presenter: presenter)
         presenter.movieUi = view
         fromViewViewController.present(view, animated: true)
+        print("dsfdfsdfsdf", movieId)
     }
 }

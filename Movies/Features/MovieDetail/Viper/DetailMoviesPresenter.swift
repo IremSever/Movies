@@ -26,6 +26,7 @@ class DetailMoviesPresenter: DetailPresentable {
         self.movieId = movieId
         self.interactor = interactor
         self.mapper = mapper
+    
     }
     
     func onViewAppear() {

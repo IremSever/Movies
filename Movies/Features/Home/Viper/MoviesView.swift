@@ -43,31 +43,31 @@ class MoviesView: UIViewController, UICollectionViewDelegate {
         //router?.navigate(to: DetailMoviesPresenter(movieId: movieId))
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = UIColor.black
-        setupCollectionView()
-        
-        Task {
-            await presenter?.onViewAppear() // Asenkron işlem
+
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            view.backgroundColor = UIColor.black
+            setupCollectionView()
+            
+            Task {
+                await presenter?.onViewAppear() // Asynchronous operation
+            }
         }
-    }
 
-    private func setupCollectionView() {
-           view.addSubview(moviesCollectionView)
+        private func setupCollectionView() {
+            view.addSubview(moviesCollectionView)
 
-           moviesCollectionView.dataSource = self
-           moviesCollectionView.delegate = self
+            moviesCollectionView.dataSource = self
+            moviesCollectionView.delegate = self // Make sure delegate is set
 
-           NSLayoutConstraint.activate([
-               moviesCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-               moviesCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-               moviesCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
-               moviesCollectionView.heightAnchor.constraint(equalToConstant: 400)
-           ])
-       
-       
-    }
+            NSLayoutConstraint.activate([
+                moviesCollectionView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                moviesCollectionView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                moviesCollectionView.widthAnchor.constraint(equalTo: view.widthAnchor),
+                moviesCollectionView.heightAnchor.constraint(equalToConstant: 400)
+            ])
+        }
+
 }
 
 // UICollectionViewDataSource implementasyonu
@@ -76,6 +76,7 @@ extension MoviesView: UICollectionViewDataSource {
         print(movies.count)
         return movies.count
     }
+    
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoviesCellView", for: indexPath) as? MoviesCellView else {
@@ -84,6 +85,10 @@ extension MoviesView: UICollectionViewDataSource {
         let movie = movies[indexPath.item]
         cell.configure(model: movie)
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        presenter?.onTapCell(atIndex: indexPath.item)
     }
 }
 
@@ -96,6 +101,7 @@ extension MoviesView: MoviesPresenterUI {
         }
     }
 }
+
 // UICollectionViewDelegateFlowLayout ile hücre boyutlarını ayarlayın
 extension MoviesView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

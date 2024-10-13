@@ -8,6 +8,7 @@
 import Foundation
 
 struct MovieViewModel {
+    let id: Int 
     let title: String
     let overview: String
     let imgURL: URL?

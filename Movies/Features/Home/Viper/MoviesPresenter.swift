@@ -41,9 +41,9 @@ class MoviesPresenter: MoviesPresentable {
         }
     }
     
-    func onTapCell(atIndex: Int) {
-        let movieId = models[atIndex].id
-        router.showDetailMovies(withMovieId: movieId.description)
+    func onTapCell(atIndex index: Int) {
+        let selectedMovie = viewModels[index] // Tıklanan filmin view modelini al
+        router.showDetailMovies(withMovieId: String(selectedMovie.id)) // Filmin id'sini router ile gönder
     }
 
     private func didFetchMovies(_ response: MoviesResponseEntity) {
@@ -56,6 +56,7 @@ class MoviesPresenter: MoviesPresentable {
             self.moviesUi?.update(movies: self.viewModels)
         }
     }
+    
 
     private func didFailToFetchMovies(_ error: Error) {
         print("Failed to fetch movies: \(error.localizedDescription)")
